@@ -10,7 +10,7 @@ type ScoreBoardType = {
 
 function ScoreBoard({count, maxCount, ...props}: ScoreBoardType) {
 
-  const finalClass = `${s.score} ${count === maxCount && s.scoreMax}`;
+  const finalClass = `${s.score} ${count === maxCount && s.scoreMax} ${props.error && s.error} ${props.error === props.startingMessage && s.messageText}`;
 
   return <div className={finalClass}>
     {props.error ? props.error : count}

@@ -39,26 +39,30 @@ const Settings = (props: SettingsType) => {
   }
 
   const disabled = !props.error || props.error !== props.startingMessage
+  const error = startCount >= maxCount
 
   return (
     <div className={s.counter}>
-      <div>max value:
+      <div className={s.score}>
+      <div className={s.inputBlock}>
+        max value:
         <Input
           value={maxCount}
           onChangeInputHandler={changeMaxCount}
+          error={error}
         />
       </div>
-      <div>start value:
+      <div className={s.inputBlock}>
+        start value:
         <Input
           value={startCount}
           onChangeInputHandler={changeStartCount}
+          error={error}
         />
+      </div>
       </div>
       <div className={s.buttons}>
         <Button callback={setStartingValues} disabled={disabled}>set</Button>
-
-        {/*<button className={s.btn} onClick={increaseCount} disabled={count === 5}>inc</button>*/}
-        {/*<button className={s.btn} onClick={resetCount} disabled={count === 0}>reset</button>*/}
       </div>
     </div>
   );

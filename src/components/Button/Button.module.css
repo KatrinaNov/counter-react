@@ -1,9 +1,9 @@
 .btn {
     cursor: pointer;
-    width: 48%;
+    flex-basis: 48%;
     padding: 10px;
     border-radius: 10px;
-    background-image: linear-gradient(45deg, #4c91e1 0%, #33d9de 50%, #002878 100%);
+    background-image: linear-gradient(45deg, #05828e 0%, #33d9de 50%, #05828e 100%);
     background-position: 100% 0;
     background-size: 200% 200%;
     font-size: 24px;
