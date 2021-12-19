@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import Counter from "./components/Counter/Counter";
 import Settings from "./components/Settings/Settings";
@@ -11,6 +11,35 @@ function App() {
   const [maxCount, setMaxCount] = useState<number>(5)
   const [count, setCount] = useState<number>(startCount);
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    let startCountAsString = localStorage.getItem('startCount')
+    let maxCountAsString = localStorage.getItem('maxCount')
+    let countAsString = localStorage.getItem('count')
+    if (startCountAsString) {
+      setStartCount(JSON.parse(startCountAsString))
+    }
+    maxCountAsString && setMaxCount(JSON.parse(maxCountAsString))
+    countAsString && setCount(JSON.parse(countAsString))
+
+
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('startCount', JSON.stringify(startCount))
+    localStorage.setItem('maxCount', JSON.stringify(maxCount))
+    localStorage.setItem('count', JSON.stringify(count))
+  }, [startCount, maxCount, count])
+
+  // const setToLocalStorage = () => {
+  //   localStorage.setItem('count', JSON.stringify(count))
+  // }
+  // const getFromLocalStorage = () => {
+  //   let countAsString = localStorage.getItem('count')
+  //   if (countAsString) {
+  //     setCount(JSON.parse(countAsString))
+  //   }
+  // }
 
   const increaseCount = () => count < maxCount && setCount(count + 1);
   const resetCount = () => setCount(startCount);

@@ -14,32 +14,30 @@ type SettingsType = {
 }
 
 const Settings = (props: SettingsType) => {
-  const [startCount, setStartCount] = useState<number>(props.minCount);
-  const [maxCount, setMaxCount] = useState<number>(props.maxCount);
 
   const changeStartCount = (value: number) => {
     props.updateError(props.startingMessage)
-    if (value >= maxCount || value < 0) {
+    if (value >= props.maxCount || value < 0) {
       props.updateError('Incorrect value')
     }
-    setStartCount(value)
+    props.changeStartCount(value)
   }
   const changeMaxCount = (value: number) => {
     props.updateError(props.startingMessage)
-    if (value <= startCount || value < 0) {
+    if (value <= props.minCount || value < 0) {
       props.updateError('Incorrect value')
     }
-    setMaxCount(value)
+    props.changeMaxCount(value)
   }
 
   const setStartingValues = () => {
-    props.changeStartCount(startCount)
-    props.changeMaxCount(maxCount)
+    props.changeStartCount(props.minCount)
+    props.changeMaxCount(props.maxCount)
     props.updateError('')
   }
 
   const disabled = !props.error || props.error !== props.startingMessage
-  const error = startCount >= maxCount
+  const error = props.minCount >= props.maxCount
 
   return (
     <div className={s.counter}>
@@ -47,7 +45,7 @@ const Settings = (props: SettingsType) => {
       <div className={s.inputBlock}>
         max value:
         <Input
-          value={maxCount}
+          value={props.maxCount}
           onChangeInputHandler={changeMaxCount}
           error={error}
         />
@@ -55,7 +53,7 @@ const Settings = (props: SettingsType) => {
       <div className={s.inputBlock}>
         start value:
         <Input
-          value={startCount}
+          value={props.minCount}
           onChangeInputHandler={changeStartCount}
           error={error}
         />
