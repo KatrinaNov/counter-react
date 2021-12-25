@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from "../Counter/Counter.module.css";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
@@ -14,21 +14,6 @@ type SettingsType = {
 }
 
 const Settings = (props: SettingsType) => {
-
-  const changeStartCount = (value: number) => {
-    props.updateError(props.startingMessage)
-    if (value >= props.maxCount || value < 0) {
-      props.updateError('Incorrect value')
-    }
-    props.changeStartCount(value)
-  }
-  const changeMaxCount = (value: number) => {
-    props.updateError(props.startingMessage)
-    if (value <= props.minCount || value < 0) {
-      props.updateError('Incorrect value')
-    }
-    props.changeMaxCount(value)
-  }
 
   const setStartingValues = () => {
     props.changeStartCount(props.minCount)
@@ -46,7 +31,7 @@ const Settings = (props: SettingsType) => {
         max value:
         <Input
           value={props.maxCount}
-          onChangeInputHandler={changeMaxCount}
+          onChangeInputHandler={props.changeMaxCount}
           error={error}
         />
       </div>
@@ -54,7 +39,7 @@ const Settings = (props: SettingsType) => {
         start value:
         <Input
           value={props.minCount}
-          onChangeInputHandler={changeStartCount}
+          onChangeInputHandler={props.changeStartCount}
           error={error}
         />
       </div>

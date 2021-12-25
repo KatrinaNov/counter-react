@@ -21,8 +21,6 @@ function App() {
     }
     maxCountAsString && setMaxCount(JSON.parse(maxCountAsString))
     countAsString && setCount(JSON.parse(countAsString))
-
-
   }, [])
 
   useEffect(() => {
@@ -31,24 +29,22 @@ function App() {
     localStorage.setItem('count', JSON.stringify(count))
   }, [startCount, maxCount, count])
 
-  // const setToLocalStorage = () => {
-  //   localStorage.setItem('count', JSON.stringify(count))
-  // }
-  // const getFromLocalStorage = () => {
-  //   let countAsString = localStorage.getItem('count')
-  //   if (countAsString) {
-  //     setCount(JSON.parse(countAsString))
-  //   }
-  // }
-
   const increaseCount = () => count < maxCount && setCount(count + 1);
   const resetCount = () => setCount(startCount);
 
-  const changeStartCount = (value: number) =>  {
+  const changeStartCount = (value: number) => {
+    updateError(startingMessage)
+    if (value >= maxCount || value < 0) {
+      updateError('Incorrect value')
+    }
     setStartCount(value)
     setCount(value)
   }
-  const changeMaxCount = (value: number) =>  {
+  const changeMaxCount = (value: number) => {
+    updateError(startingMessage)
+    if (value <= startCount || value < 0) {
+      updateError('Incorrect value')
+    }
     setMaxCount(value)
   }
 
@@ -59,20 +55,20 @@ function App() {
       <Settings
         changeStartCount={changeStartCount}
         changeMaxCount={changeMaxCount}
-        updateError = {updateError}
-        error = {error}
-        startingMessage = {startingMessage}
-        minCount = {startCount}
-        maxCount = {maxCount}
+        updateError={updateError}
+        error={error}
+        startingMessage={startingMessage}
+        minCount={startCount}
+        maxCount={maxCount}
       />
       <Counter
         count={count}
         increaseCount={increaseCount}
         resetCount={resetCount}
-        minCount = {startCount}
-        maxCount = {maxCount}
-        startingMessage = {startingMessage}
-        error = {error}
+        minCount={startCount}
+        maxCount={maxCount}
+        startingMessage={startingMessage}
+        error={error}
       />
     </div>
   );

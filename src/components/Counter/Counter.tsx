@@ -29,9 +29,6 @@ function Counter({count, increaseCount, resetCount, minCount, maxCount, ...props
       <div className={s.buttons}>
         <Button callback={increaseCount} disabled={disabledInc}>inc</Button>
         <Button callback={resetCount} disabled={disabledRes}>reset</Button>
-
-        {/*<button className={s.btn} onClick={increaseCount} disabled={count === 5}>inc</button>*/}
-        {/*<button className={s.btn} onClick={resetCount} disabled={count === 0}>reset</button>*/}
       </div>
     </div>
   );
