@@ -31,6 +31,7 @@ export const counterReducer = (state = initialState, action: ActionsType): Count
       return {...state, startCount: action.count}
     case "SET_ERROR":
       return {...state, error: action.error}
+
     default:
       return state
   }

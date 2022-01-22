@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './App.css';
 import Counter from "./components/Counter/Counter";
 import Settings from "./components/Settings/Settings";
@@ -10,30 +10,6 @@ function App() {
 
   const {count, startCount, maxCount, error, startingMessage} = useSelector<AppRootStateType, CounterStateType>(state => state.counter)
   const dispatch = useDispatch()
-
-  // const startingMessage = 'enter values and press "set"';
-  //
-  // const [startCount, setStartCount] = useState<number>(0)
-  // const [maxCount, setMaxCount] = useState<number>(5)
-  // const [count, setCount] = useState<number>(startCount);
-  // const [error, setError] = useState('')
-
-  useEffect(() => {
-    let startCountAsString = localStorage.getItem('startCount')
-    let maxCountAsString = localStorage.getItem('maxCount')
-    let countAsString = localStorage.getItem('count')
-    if (startCountAsString) {
-      dispatch(setStartCount(JSON.parse(startCountAsString)))
-    }
-    maxCountAsString && dispatch(setMaxCount(JSON.parse(maxCountAsString)))
-    countAsString && dispatch(setCount(JSON.parse(countAsString)))
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem('startCount', JSON.stringify(startCount))
-    localStorage.setItem('maxCount', JSON.stringify(maxCount))
-    localStorage.setItem('count', JSON.stringify(count))
-  }, [startCount, maxCount, count])
 
   const increaseCount = () => count < maxCount && dispatch(setCount(count + 1));
   const resetCount = () => dispatch(setCount(startCount));
