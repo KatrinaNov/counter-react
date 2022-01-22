@@ -11,6 +11,7 @@ type InputPropsType = DefaultInputPropsType &{
 
 const Input = (props: InputPropsType) => {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!Number.isInteger(+e.currentTarget.value)) return;
     props.onChangeInputHandler(+e.currentTarget.value)
   }
   const finalClassName =
@@ -22,6 +23,7 @@ const Input = (props: InputPropsType) => {
   return (
       <input
         type="number"
+        step="1"
         value={props.value.toString()}
         onChange={onChangeHandler}
         className = {finalClassName}
