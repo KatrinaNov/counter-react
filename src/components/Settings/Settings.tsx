@@ -4,7 +4,13 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
-import {CounterStateType, setCount, setError, setMaxCount, setStartCount} from "../../reducers/counterReducer";
+import {
+  CounterStateType,
+  setError,
+  setMaxCount,
+  setStartCount,
+  setStartingValuesAC
+} from "../../reducers/counterReducer";
 
 const Settings = () => {
 
@@ -23,7 +29,6 @@ const Settings = () => {
       dispatch(setError('Incorrect value'))
     }
     dispatch(setStartCount(value))
-    dispatch(setCount(value))
   }
   const changeMaxCount = (value: number) => {
     dispatch(setError(startingMessage))
@@ -32,11 +37,7 @@ const Settings = () => {
     }
     dispatch(setMaxCount(value))
   }
-  const setStartingValues = () => {
-    changeStartCount(startCount)
-    changeMaxCount(maxCount)
-    dispatch(setError(''))
-  }
+  const setStartingValues = () => dispatch(setStartingValuesAC(startCount, startCount, maxCount,  ''))
 
   const disabled = !error || error !== startingMessage
   const isError = startCount >= maxCount

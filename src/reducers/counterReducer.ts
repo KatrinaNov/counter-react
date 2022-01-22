@@ -1,9 +1,10 @@
-type ActionsType = SetCountActionType | SetErrorActionType | SetMaxCountActionType | SetMinCountActionType;
+type ActionsType = SetCountActionType | SetErrorActionType | SetMaxCountActionType | SetMinCountActionType | SetStartingValuesActionType;
 
 const SET_COUNT = 'SET_COUNT'
 const SET_ERROR = 'SET_ERROR'
 const SET_MAX_COUNT = 'SET_MAX_COUNT'
 const SET_START_COUNT = 'SET_START_COUNT'
+const SET_STARTING_VALUES = 'SET_STARTING_VALUES'
 
 export type CounterStateType = {
   count: number,
@@ -24,14 +25,11 @@ let initialState: CounterStateType = {
 export const counterReducer = (state = initialState, action: ActionsType): CounterStateType => {
   switch (action.type) {
     case "SET_COUNT":
-      return {...state, count: action.count}
     case "SET_MAX_COUNT":
-      return {...state, maxCount: action.count}
     case "SET_START_COUNT":
-      return {...state, startCount: action.count}
     case "SET_ERROR":
-      return {...state, error: action.error}
-
+    case "SET_STARTING_VALUES":
+      return {...state, ...action.payload}
     default:
       return state
   }
@@ -39,19 +37,23 @@ export const counterReducer = (state = initialState, action: ActionsType): Count
 
 type SetCountActionType = ReturnType<typeof setCount>
 export const setCount = (count: number) => {
-  return {type: SET_COUNT, count} as const
+  return {type: SET_COUNT, payload: {count}} as const
 }
 type SetErrorActionType = ReturnType<typeof setError>
 export const setError = (error: string) => {
-  return {type: SET_ERROR, error} as const
+  return {type: SET_ERROR, payload: {error}} as const
 }
 type SetMaxCountActionType = ReturnType<typeof setMaxCount>
-export const setMaxCount = (count: number) => {
-  return {type: SET_MAX_COUNT, count} as const
+export const setMaxCount = (maxCount: number) => {
+  return {type: SET_MAX_COUNT, payload: {maxCount}} as const
 }
 type SetMinCountActionType = ReturnType<typeof setStartCount>
-export const setStartCount = (count: number) => {
-  return {type: SET_START_COUNT, count} as const
+export const setStartCount = (startCount: number) => {
+  return {type: SET_START_COUNT, payload: {startCount}} as const
+}
+type SetStartingValuesActionType = ReturnType<typeof setStartingValuesAC>
+export const setStartingValuesAC = (count: number, startCount: number, maxCount: number,  error: string) => {
+  return {type: SET_STARTING_VALUES, payload: {count, startCount, maxCount, error}} as const
 }
 
 
