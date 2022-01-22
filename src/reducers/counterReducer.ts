@@ -39,19 +39,19 @@ export const counterReducer = (state = initialState, action: ActionsType): Count
 
 type SetCountActionType = ReturnType<typeof setCount>
 export const setCount = (count: number) => {
-  return { type: SET_COUNT, count } as const
+  return {type: SET_COUNT, count} as const
 }
 type SetErrorActionType = ReturnType<typeof setError>
 export const setError = (error: string) => {
-  return { type: SET_ERROR, error } as const
+  return {type: SET_ERROR, error} as const
 }
 type SetMaxCountActionType = ReturnType<typeof setMaxCount>
 export const setMaxCount = (count: number) => {
-  return { type: SET_MAX_COUNT, count } as const
+  return {type: SET_MAX_COUNT, count} as const
 }
 type SetMinCountActionType = ReturnType<typeof setStartCount>
 export const setStartCount = (count: number) => {
-  return { type: SET_START_COUNT, count } as const
+  return {type: SET_START_COUNT, count} as const
 }
 
 
