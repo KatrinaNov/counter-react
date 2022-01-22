@@ -15,6 +15,8 @@ type Counter = {
 
 function Counter({count, increaseCount, resetCount, minCount, maxCount, ...props}: Counter) {
 
+
+
   const disabledInc = !!props.error || count === maxCount
   const disabledRes = !!props.error || count === minCount
 

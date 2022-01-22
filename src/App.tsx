@@ -2,25 +2,31 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import Counter from "./components/Counter/Counter";
 import Settings from "./components/Settings/Settings";
+import {AppRootStateType} from "./redux/store";
+import {useDispatch, useSelector} from "react-redux";
+import {CounterStateType, setCount, setError, setMaxCount, setStartCount} from "./reducers/counterReducer";
 
 function App() {
 
-  const startingMessage = 'enter values and press "set"';
+  const {count, startCount, maxCount, error, startingMessage} = useSelector<AppRootStateType, CounterStateType>(state => state.counter)
+  const dispatch = useDispatch()
 
-  const [startCount, setStartCount] = useState<number>(0)
-  const [maxCount, setMaxCount] = useState<number>(5)
-  const [count, setCount] = useState<number>(startCount);
-  const [error, setError] = useState('')
+  // const startingMessage = 'enter values and press "set"';
+  //
+  // const [startCount, setStartCount] = useState<number>(0)
+  // const [maxCount, setMaxCount] = useState<number>(5)
+  // const [count, setCount] = useState<number>(startCount);
+  // const [error, setError] = useState('')
 
   useEffect(() => {
     let startCountAsString = localStorage.getItem('startCount')
     let maxCountAsString = localStorage.getItem('maxCount')
     let countAsString = localStorage.getItem('count')
     if (startCountAsString) {
-      setStartCount(JSON.parse(startCountAsString))
+      dispatch(setStartCount(JSON.parse(startCountAsString)))
     }
-    maxCountAsString && setMaxCount(JSON.parse(maxCountAsString))
-    countAsString && setCount(JSON.parse(countAsString))
+    maxCountAsString && dispatch(setMaxCount(JSON.parse(maxCountAsString)))
+    countAsString && dispatch(setCount(JSON.parse(countAsString)))
   }, [])
 
   useEffect(() => {
@@ -29,26 +35,26 @@ function App() {
     localStorage.setItem('count', JSON.stringify(count))
   }, [startCount, maxCount, count])
 
-  const increaseCount = () => count < maxCount && setCount(count + 1);
-  const resetCount = () => setCount(startCount);
+  const increaseCount = () => count < maxCount && dispatch(setCount(count + 1));
+  const resetCount = () => dispatch(setCount(startCount));
 
   const changeStartCount = (value: number) => {
     updateError(startingMessage)
     if (value >= maxCount || value < 0) {
       updateError('Incorrect value')
     }
-    setStartCount(value)
-    setCount(value)
+    dispatch(setStartCount(value))
+    dispatch(setCount(value))
   }
   const changeMaxCount = (value: number) => {
     updateError(startingMessage)
     if (value <= startCount || value < 0) {
       updateError('Incorrect value')
     }
-    setMaxCount(value)
+    dispatch(setMaxCount(value))
   }
 
-  const updateError = (error: string) => setError(error)
+  const updateError = (error: string) => dispatch(setError(error))
 
   return (
     <div className="App">

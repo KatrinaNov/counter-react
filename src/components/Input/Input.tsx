@@ -22,7 +22,7 @@ const Input = (props: InputPropsType) => {
   return (
       <input
         type="number"
-        value={props.value}
+        value={props.value.toString()}
         onChange={onChangeHandler}
         className = {finalClassName}
       />
