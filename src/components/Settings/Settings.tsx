@@ -17,30 +17,28 @@ const Settings = () => {
   const {
     startCount,
     maxCount,
-    startingMessage,
+    message,
     error
   } = useSelector<AppRootStateType, CounterStateType>(state => state.counter)
 
   const dispatch = useDispatch()
 
   const changeStartCount = (value: number) => {
-    dispatch(setError(startingMessage))
-    if (value >= maxCount || value < 0) {
-      dispatch(setError('Incorrect value'))
-    }
     dispatch(setStartCount(value))
-  }
-  const changeMaxCount = (value: number) => {
-    dispatch(setError(startingMessage))
-    if (value <= startCount || value < 0) {
-      dispatch(setError('Incorrect value'))
+    if (value >= maxCount || value < 0) {
+      dispatch(setError())
     }
-    dispatch(setMaxCount(value))
   }
-  const setStartingValues = () => dispatch(setStartingValuesAC(startCount, startCount, maxCount,  ''))
 
-  const disabled = !error || error !== startingMessage
-  const isError = startCount >= maxCount
+  const changeMaxCount = (value: number) => {
+    dispatch(setMaxCount(value))
+    if (value <= startCount || value < 0) {
+      dispatch(setError())
+    }
+  }
+  const setStartingValues = () => dispatch(setStartingValuesAC(startCount, startCount, maxCount))
+
+  const isDisabled = error || !message
 
   return (
     <div className={s.counter}>
@@ -50,7 +48,7 @@ const Settings = () => {
           <Input
             value={maxCount}
             onChangeInputHandler={changeMaxCount}
-            error={isError}
+            error={error}
           />
         </div>
         <div className={s.inputBlock}>
@@ -58,12 +56,12 @@ const Settings = () => {
           <Input
             value={startCount}
             onChangeInputHandler={changeStartCount}
-            error={isError}
+            error={error}
           />
         </div>
       </div>
       <div className={s.buttons}>
-        <Button callback={setStartingValues} disabled={disabled}>set</Button>
+        <Button callback={setStartingValues} disabled={isDisabled}>set</Button>
       </div>
     </div>
   );

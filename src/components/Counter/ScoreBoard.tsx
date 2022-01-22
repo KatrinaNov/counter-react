@@ -4,8 +4,8 @@ import s from './Counter.module.css'
 type ScoreBoardType = {
   count: number
   maxCount: number
-  error: string
-  startingMessage: string
+  error: boolean
+  message: string
 }
 
 function ScoreBoard({count, maxCount, ...props}: ScoreBoardType) {
@@ -14,11 +14,11 @@ function ScoreBoard({count, maxCount, ...props}: ScoreBoardType) {
   ${s.score} 
   ${count === maxCount && s.scoreMax} 
   ${props.error && s.error} 
-  ${props.error === props.startingMessage && s.messageText}
+  ${props.message && s.messageText}
   `;
 
   return <div className={finalClass}>
-    {props.error ? props.error : count}
+    {props.message ? props.message : count}
   </div>
 
 }

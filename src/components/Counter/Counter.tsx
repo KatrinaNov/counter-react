@@ -13,7 +13,7 @@ function Counter() {
     count,
     startCount,
     maxCount,
-    startingMessage,
+    message,
     error
   } = useSelector<AppRootStateType, CounterStateType>(state => state.counter)
   const dispatch = useDispatch()
@@ -21,15 +21,15 @@ function Counter() {
   const increaseCount = () => count < maxCount && dispatch(setCount(count + 1));
   const resetCount = () => dispatch(setCount(startCount));
 
-  const disabledInc = !!error || count === maxCount
-  const disabledRes = !!error || count === startCount
+  const disabledInc = !!message || count === maxCount
+  const disabledRes = !!message || count === startCount
 
   return (
     <div className={s.counter}>
       <ScoreBoard
         count={count}
         maxCount={maxCount}
-        startingMessage={startingMessage}
+        message={message}
         error={error}
       />
       <div className={s.buttons}>

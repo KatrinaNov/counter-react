@@ -27,12 +27,13 @@
     font-size: 48px;
     color: red;
 }
-.score.error {
+.messageText {
     font-size: 24px;
-    color: red;
-}
-.score.messageText {
     color: #fff;
+}
+.error {
+    font-size: 24px;
+    color: red
 }
 .buttons {
     display: flex;
@@ -41,12 +42,6 @@
     border-radius: 10px;
     padding: 10px;
     margin-top: auto;
-}
-.message {
-    color: white
-}
-.message.error {
-    color: red
 }
 .inputBlock {
     display: flex;
